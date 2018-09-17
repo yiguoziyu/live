@@ -8,6 +8,7 @@ class LoginPage extends BaseStatefulWidget {
   @override
   State<StatefulWidget> createState() {
     return _LoginPageState();
+
   }
 }
 
