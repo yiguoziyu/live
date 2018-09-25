@@ -13,10 +13,9 @@ class LiveItem extends StatelessWidget {
     return MergeSemantics(
       child: Card(
         child: Stack(
+          fit: StackFit.expand,
           children: <Widget>[
             Container(
-              width: 170.0,
-              height: 170.0,
               child: Hero(
                 tag: anchorBean.id,
                 child: new Image.network(anchorBean.img, fit: BoxFit.fill),

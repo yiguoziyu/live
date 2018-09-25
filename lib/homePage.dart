@@ -12,22 +12,6 @@ import 'package:flutter_swiper/flutter_swiper.dart';
 
 ///home page
 class HomePage extends StatefulWidget {
-//  final GlobalKey<ScaffoldState> scaffoldKey;
-//  final Widget body;
-//  final Widget floatingActionButton;
-//  final List<AnchorBean> anchorBeans;
-//
-//
-//  HomePage({Key key,
-//    @required this.scaffoldKey,
-//    @required this.body,
-//    this.floatingActionButton,
-//    this.anchorBeans
-//  })
-//      :assert(body != null),
-//        assert(scaffoldKey != null),
-//        super(key: key);
-
   @override
   State<StatefulWidget> createState() => _HomePageState();
 }
@@ -44,8 +28,7 @@ final List<AnchorBean> _datas = <AnchorBean>[
   AnchorBean(
       id: "3",
       nickName: "tome",
-      img:
-          "http://image.tianjimedia.com/uploadImages/2015/069/45/3C412CQZ6D7V.jpg"),
+      img: "http://img06.tooopen.com/images/20161121/tooopen_sy_187362418112.jpg"),
   AnchorBean(
       id: "4",
       nickName: "tome",
@@ -120,11 +103,6 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text('我的',style: TextStyle(color: Colors.white),),
-        backgroundColor: Colors.black,
-      ),
       body: CustomScrollView(
         slivers: <Widget>[
           SliverToBoxAdapter(
@@ -165,27 +143,3 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class _Heading extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    final Size screenSize = MediaQuery.of(context).size;
-
-    return MergeSemantics(
-      child: SizedBox(
-//        height: screenSize.width > screenSize.height
-//            ? (screenSize.height - kToolbarHeight) * 0.85
-//            : (screenSize.height - kToolbarHeight) * 0.70,
-        height: 120.0,
-        child: Container(
-          decoration: BoxDecoration(
-              color: Colors.white,
-              border: Border(bottom: BorderSide(color: Colors.grey))),
-          child: InkWell(
-            child: Text("banner"),
-            onTap: () {},
-          ),
-        ),
-      ),
-    );
-  }
-}

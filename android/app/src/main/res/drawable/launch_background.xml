@@ -6,7 +6,11 @@
     <!-- You can insert your own image assets here -->
     <item >
         <bitmap
+            android:dither="true"
+            android:filter="true"
+            android:mipMap="true"
             android:gravity="fill"
             android:src="@mipmap/access_guide_bg" />
+
     </item>
 </layer-list>

@@ -25,19 +25,22 @@ class ITextField extends StatefulWidget {
   final Icon deleteIcon;
   final InputBorder inputBorder;
   final Widget prefixIcon;
+  final TextStyle textStyle;
+  final FormFieldValidator<String> validator;
 
-  ITextField(
-      {Key key,
-      ITextInputType keyboardType: ITextInputType.text,
-      this.maxLines = 1,
-      this.maxLength,
-      this.hintText,
-      this.hintStyle,
-      this.fieldCallBack,
-      this.deleteIcon,
-      this.inputBorder,
-      this.prefixIcon})
-      : assert(maxLines == null || maxLines > 0),
+  ITextField({
+    Key key,
+    ITextInputType keyboardType: ITextInputType.text,
+    this.maxLines = 1,
+    this.maxLength,
+    this.hintText,
+    this.hintStyle,
+    this.fieldCallBack,
+    this.deleteIcon,
+    this.inputBorder,
+    this.textStyle,
+    this.prefixIcon,
+  })  : assert(maxLines == null || maxLines > 0),
         assert(maxLength == null || maxLength > 0),
         keyboardType = maxLines == 1 ? keyboardType : ITextInputType.multiline,
         super(key: key);
@@ -48,7 +51,6 @@ class ITextField extends StatefulWidget {
 
 class _ITextFieldState extends State<ITextField> {
   String _inputText = "";
-  String _showText = "";
   bool _hasdeleteIcon = false;
   bool _isNumber = false;
   bool _isPassword = false;
@@ -89,15 +91,19 @@ class _ITextFieldState extends State<ITextField> {
 
   @override
   Widget build(BuildContext context) {
+    TextEditingController _controller = new TextEditingController.fromValue(
+        TextEditingValue(
+            text: _inputText,
+            selection: new TextSelection.fromPosition(TextPosition(
+                affinity: TextAffinity.downstream,
+                offset: _inputText.length))));
     TextField textField = new TextField(
-      controller: new TextEditingController.fromValue(TextEditingValue(
-          text: _showText,
-          selection: new TextSelection.fromPosition(TextPosition(
-              affinity: TextAffinity.downstream, offset: _showText.length)))),
+      controller: _controller,
       decoration: InputDecoration(
         hintStyle: widget.hintStyle,
+        counterStyle: TextStyle(color: Colors.white),
         hintText: widget.hintText,
-        border: widget.inputBorder == null
+        border: widget.inputBorder != null
             ? widget.inputBorder
             : UnderlineInputBorder(),
         fillColor: Colors.transparent,
@@ -117,7 +123,8 @@ class _ITextFieldState extends State<ITextField> {
                   onPressed: () {
                     setState(() {
                       _inputText = "";
-                      _showText = "";
+                      _hasdeleteIcon = (_inputText.isNotEmpty);
+                      widget.fieldCallBack(_inputText);
                     });
                   },
                 ),
@@ -126,34 +133,18 @@ class _ITextFieldState extends State<ITextField> {
       ),
       onChanged: (str) {
         setState(() {
-          if(_isPassword){
-            if (str.length > _showText.length) {
-              _inputText+=str[str.length-1];
-              _showText += "*";
-            }else{
-              _inputText.substring(0,_inputText.length-1);
-              _showText=_showText.substring(0,_showText.length-1);
-            }
-          }else{
-            _inputText = str;
-            _showText=str;
-          }
+          _inputText = str;
           _hasdeleteIcon = (_inputText.isNotEmpty);
           widget.fieldCallBack(_inputText);
         });
-      },
-      onSubmitted: (text) {
-        FocusScope.of(context).reparentIfNeeded(FocusNode());
       },
       keyboardType: _getTextInputType(),
       maxLength: widget.maxLength,
       maxLines: widget.maxLines,
       inputFormatters: _getTextInputFormatter(),
+      style: widget.textStyle,
+      obscureText: _isPassword,
     );
     return textField;
-  }
-
-  String getInputValue() {
-    return _inputText;
   }
 }

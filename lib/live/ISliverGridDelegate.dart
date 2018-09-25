@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 
@@ -16,8 +18,9 @@ class ISliverGridDelegate extends SliverGridDelegate {
     @required this.rowCount,
     this.kSpacing,
     this.titleWidth,
-    this.isSquare=false
-  })  : assert(titleHeight != null),
+    this.isSquare = false
+  })
+      : assert(titleHeight != null),
         assert(dataCount != null),
         assert(rowCount != null);
 
@@ -27,9 +30,9 @@ class ISliverGridDelegate extends SliverGridDelegate {
     titleWidth = (constraints.crossAxisExtent - kSpacing) / rowCount;
 
     return _ISliverGridLayout(
-        tileHeight: isSquare?titleWidth:titleHeight,
+        tileHeight: isSquare ? titleWidth : titleHeight,
         tileWidth: titleWidth,
-        rowStride: isSquare?titleWidth:titleHeight + kSpacing,
+        rowStride: isSquare ? titleWidth : titleHeight + kSpacing,
         columnStride: titleWidth + kSpacing,
         dataCount: dataCount,
         rowCount: rowCount);
@@ -73,13 +76,12 @@ class _ISliverGridLayout extends SliverGridLayout {
     final int row = index ~/ rowCount;
     final int column = index % rowCount;
     final int columnSpan = 1;
+
     return new SliverGridGeometry(
       ///行宽
       scrollOffset: row * rowStride,
-
       ///列宽
       crossAxisOffset: column * columnStride,
-
       ///与上一个控件的距离
       mainAxisExtent: tileHeight,
       crossAxisExtent: tileWidth + (columnSpan - 1) * columnStride,

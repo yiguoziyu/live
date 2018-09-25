@@ -25,11 +25,28 @@ flutter:
 
 
   assets:
+#       - images/
+
+#        - images/access_module/
+#        - images/base_module/
+
         #access_module
         - images/access_module/access_guide_bg.png
         - images/access_module/access_login_bg.png
 
         #base_module
         - images/base_module/ic_textfiled_delete.png
+        - images/base_module/ic_vip.png
+        - images/base_module/ic_drawer_bg.png
+
+        - images/base_module/drawer_close.png
+        - images/base_module/drawer_coupon.png
+        - images/base_module/drawer_friend.png
+        - images/base_module/drawer_location.png
+        - images/base_module/drawer_night.png
+        - images/base_module/drawer_playgame.png
+        - images/base_module/drawer_setting.png
+        - images/base_module/drawer_vip.png
+
 
 
